@@ -110,7 +110,7 @@ $('transcribeAudio').onclick=async()=>{
   const samples=await decode16k(bytes);
   const model=await getWhisper();
   asrNote('正在辨識英文，請保持頁面開啟（長音檔需要較長時間）…');
-  const result=await model(samples,{chunk_length_s:30,stride_length_s:5,return_timestamps:false,task:'transcribe',language:'english'});
+  const result=await model(samples,{chunk_length_s:30,stride_length_s:5,return_timestamps:false});
   const value=String(result?.text||'').trim();
   if(!value)throw Error('辨識結果為空白，請檢查音檔是否有人聲。');
   t.englishText=value;save();
