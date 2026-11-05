@@ -38,3 +38,11 @@ Repeat one: Use the repeat-one button to replay the current audio continuously. 
 - 「重新同步」在未授權時會嘗試快速連線；「重新授權」則明確使用 Google consent 流程。
 - 「登出」會撤銷目前權杖並清除本分頁的暫存授權，不會刪除教材筆記。
 - 受 Google 帳號政策、第三方 Cookie、瀏覽器防彈窗設定等因素限制，無法保證全程無提示登入。
+
+
+## 介面美化版
+- 深藍與青綠色系、統一字體與視覺層次
+- 播放器區塊、單曲重複、自動連播控制區及教材清單卡片美化
+- Google Drive 登入區、逐字稿與筆記欄位美化
+- 手機和平板響應式排版、鍵盤焦點狀態與減少動畫設定
+- 保留原有 JavaScript 行為、教材資料及授權處理方式。
