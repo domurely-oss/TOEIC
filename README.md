@@ -28,3 +28,13 @@ Repeat one: Use the repeat-one button to replay the current audio continuously. 
 
 ## 2026-11-05 英文語音辨識修正
 使用 `onnx-community/whisper-tiny.en` 英文專用模型時，辨識呼叫不再傳入 `task` 與 `language`，修正「Cannot specify `task` or `language` for an English-only model」錯誤。其他功能（單曲重複、教材清單獨立介面）保留。
+
+
+## 減少重複 Google 登入（本版）
+
+- 「Google 連線／快速續用」會先以 `prompt: ''` 請求存取權杖；不再每次強制 `prompt: 'consent'`。如果 Google 要求重新確認帳號，仍須完成互動。
+- 使用 `sessionStorage` 暫存**短效** OAuth access token 及到期時間，支援相同分頁重新整理後續用（一般約 1 小時，實際依 Google 回傳）。不保存 refresh token、密碼或長效憑證。關閉分頁或瀏覽器後通常需重新取得授權。
+- 教材清單、筆記、完成狀態仍使用 `localStorage` 保留，未登入也能先看清單；Google Drive 音訊及逐字稿須持有有效授權才可下載。
+- 「重新同步」在未授權時會嘗試快速連線；「重新授權」則明確使用 Google consent 流程。
+- 「登出」會撤銷目前權杖並清除本分頁的暫存授權，不會刪除教材筆記。
+- 受 Google 帳號政策、第三方 Cookie、瀏覽器防彈窗設定等因素限制，無法保證全程無提示登入。
