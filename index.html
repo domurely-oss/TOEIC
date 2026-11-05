@@ -77,7 +77,7 @@ textarea{line-height:1.7;min-height:155px}
 @media(max-width:750px){header{padding:28px 19px 44px}.view-nav{padding:0 14px;margin-top:-21px;gap:8px}.view-nav .view-tab{min-width:0;flex:1;padding:10px 8px;font-size:13px;min-height:50px}main{padding:0 13px;margin-top:17px;gap:14px}.panel{border-radius:16px;padding:18px}.player{padding:16px}.actions{gap:8px}.actions button{flex:1 1 calc(33.33% - 8px);padding:10px 7px;font-size:13px}.actions #play{order:-1;flex:1 1 100%;font-size:16px}.meta{align-items:stretch}.meta select{max-width:140px}.autonextbar button{flex:1 1 180px}.stats strong{font-size:24px}.view-lead{flex-wrap:wrap}.view-lead button{width:auto}.row{gap:9px}}
 @media(max-width:450px){header h1{font-size:24px}header p{font-size:12px}.view-nav .view-tab{font-size:12px}.view-lead button{width:100%}.toolbar{flex-wrap:wrap}.toolbar input{flex:1 1 100%}.toolbar button{flex:1}#transcriptSection .row>button{flex:1 1 100%}.meta label{flex:0 0 auto}.meta button{flex:1 1 90px}.config .row button{flex:1 1 115px}.stats{gap:8px}.stats div{padding:12px}.panel{padding:15px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
-</style></head><body><header><h1>🎧 TOEIC 多益聽力學習站</h1><p>Part 1–4 分類練習 · 變速播放 · A–B 重複 · Google Drive 聽力檔</p></header><nav aria-label="主要功能切換" class="view-nav"><button aria-current="page" class="view-tab active" id="goPlayer" type="button">🎧 聽力播放</button><button class="view-tab" id="goMaterials" type="button">📚 我的教材清單</button></nav><main><section class="panel" id="playerSection"><div class="view-lead"><span>聽力播放與逐字稿</span><button class="secondary" id="chooseMaterial" type="button">📚 選擇教材</button></div><div class="stats"><div><span class="muted">教材數量</span><strong id="count">0</strong></div><div><span class="muted">已完成</span><strong id="done">0</strong></div></div><h2 id="now">請先選擇聽力教材</h2><div class="player" id="localPlayer"><audio id="audio" preload="metadata"></audio><input id="seek" max="1000" min="0" type="range" value="0"/><div class="time"><span id="current">00:00</span><span id="duration">00:00</span></div><div class="actions"><button class="secondary" id="prev">上一首</button><button class="secondary" id="back">−5 秒</button><button id="play">▶ 播放</button><button class="secondary" id="forward">+5 秒</button><button class="secondary" id="next">下一首</button></div><div class="meta"><label style="margin:0">速度</label><select id="speed"><option value="0.75">0.75×</option><option selected="" value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><button class="secondary" id="markA">設 A 點</button><button class="secondary" id="markB">設 B 點</button><button class="secondary" id="clearAB">清除區間</button><span class="pill" id="ab">未設定 A–B</span></div></div><div class="hidden" id="drivePlayer"><div class="notice">Google Drive 使用官方預覽播放器；如無法播放，請確認共用權限，或改用本機檔案模式。</div><iframe allow="autoplay" class="preview" id="frame" title="Google Drive 聽力預覽"></iframe><p><a id="openDrive" rel="noopener noreferrer" target="_blank">在 Google Drive 開啟檔案</a></p></div><div class="autonextbar"><button aria-pressed="false" class="secondary" id="repeatOne" type="button">🔂 單曲重複：關閉</button><button aria-pressed="false" class="secondary" id="autoNext" type="button">▶ 自動播放下一首：關閉</button><span class="muted" id="autoNextHelp">開啟後，目前音檔播放完畢便接續播放清單的下一首；最後一首會停止。</span></div></section><section class="panel" id="transcriptSection"><div class="row" style="margin:16px 0"><button id="complete">✓ 標記完成</button><button class="danger" id="remove">刪除此教材</button></div><h2>中英文逐字稿及學習筆記</h2><p class="muted" id="transcriptStatus" role="status">請先選擇教材。若雲端資料夾中有同名 TXT、SRT、VTT，將自動讀取。</p><div class="row" style="margin:8px 0"><button class="secondary" id="transcribeAudio" type="button">🎙 從音檔產生英文逐字稿</button><button class="secondary" id="prepareWhisper" type="button">⬇ 測試／下載辨識模型</button><button id="saveTranscriptDrive" type="button">☁ 儲存逐字稿至 Google Drive</button><button class="secondary" id="reloadTranscript">↻ 重新載入雲端逐字稿</button><label style="margin:0;flex:2">匯入逐字稿檔<input accept=".txt,.srt,.vtt,text/plain,text/vtt" id="transcriptFile" style="margin-top:4px" type="file"/></label></div><label class="autoupload-option" style="display:flex;align-items:center;gap:9px;font-size:14px;margin:12px 0"><input id="autoUploadTranscript" type="checkbox" style="width:auto;accent-color:#087e74"> 語音辨識完成後自動儲存至 Google Drive（限雲端教材）</label><p class="muted">☁ 儲存會將英文及中文逐字稿存成同名 TXT 檔，放回教材所在資料夾。請先至「我的教材清單」重新授權完整 Drive 讀寫權限；此權限可管理帳號雲端硬碟內的檔案，請只在信任本網站時同意。辨識結果也會保存在目前瀏覽器。</p><p class="muted" id="asrStatus" role="status">瀏覽器端 Whisper 語音辨識（如一直沒有進度，請按 Ctrl+F5 清除舊版快取）：第一次會下載模型（約數十至數百 MB），僅辨識英文；速度依裝置而異。辨識期間請保持網頁開啟。</p><label for="englishText">英文逐字稿</label><textarea id="englishText" placeholder="對應音檔的英文逐字稿會顯示在這裡；也可以自行編輯。"></textarea><label for="chineseText">中文翻譯</label><textarea id="chineseText" placeholder="若雲端有同名中文翻譯檔，會自動顯示在這裡；也可自行編輯。"></textarea><h2 style="margin-top:18px">學習筆記</h2><textarea id="notes" placeholder="記錄單字、句型或個人學習心得。"></textarea><p class="muted">自動配對範例：Part 2-01.mp3 搭配 Part 2-01.en.srt（英文）、Part 2-01.zh.txt（中文）。支援 TXT / SRT / VTT。若沒有字幕檔，可使用「從音檔產生英文逐字稿」進行語音辨識；辨識不等於正確答案，請自行核對。</p><p class="muted">學習清單、筆記與完成狀態保存在目前瀏覽器的 localStorage；清除瀏覽資料可能遺失紀錄。</p></section><aside aria-label="教材清單與管理" class="panel hidden" id="materialsSection"><div class="view-lead"><span>教材清單與管理</span><button class="secondary" id="backToPlayer" type="button">← 返回播放畫面</button></div><h2>Google Drive 同步與教材管理</h2>
+</style></head><body><header><h1>🎧 TOEIC 多益聽力學習站</h1><p>Part 1–4 分類練習 · 變速播放 · A–B 重複 · Google Drive 聽力檔</p></header><nav aria-label="主要功能切換" class="view-nav"><button aria-current="page" class="view-tab active" id="goPlayer" type="button">🎧 聽力播放</button><button class="view-tab" id="goMaterials" type="button">📚 我的教材清單</button></nav><main><section class="panel" id="playerSection"><div class="view-lead"><span>聽力播放與逐字稿</span><button class="secondary" id="chooseMaterial" type="button">📚 選擇教材</button></div><div class="stats"><div><span class="muted">教材數量</span><strong id="count">0</strong></div><div><span class="muted">已完成</span><strong id="done">0</strong></div></div><h2 id="now">請先選擇聽力教材</h2><div class="player" id="localPlayer"><audio id="audio" preload="metadata"></audio><input id="seek" max="1000" min="0" type="range" value="0"/><div class="time"><span id="current">00:00</span><span id="duration">00:00</span></div><div class="actions"><button class="secondary" id="prev">上一首</button><button class="secondary" id="back">−5 秒</button><button id="play">▶ 播放</button><button class="secondary" id="forward">+5 秒</button><button class="secondary" id="next">下一首</button></div><div class="meta"><label style="margin:0">速度</label><select id="speed"><option value="0.75">0.75×</option><option selected="" value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><button class="secondary" id="markA">設 A 點</button><button class="secondary" id="markB">設 B 點</button><button class="secondary" id="clearAB">清除區間</button><span class="pill" id="ab">未設定 A–B</span></div></div><div class="hidden" id="drivePlayer"><div class="notice">Google Drive 使用官方預覽播放器；如無法播放，請確認共用權限，或改用本機檔案模式。</div><iframe allow="autoplay" class="preview" id="frame" title="Google Drive 聽力預覽"></iframe><p><a id="openDrive" rel="noopener noreferrer" target="_blank">在 Google Drive 開啟檔案</a></p></div><div class="autonextbar"><button aria-pressed="false" class="secondary" id="repeatOne" type="button">🔂 單曲重複：關閉</button><button aria-pressed="false" class="secondary" id="autoNext" type="button">▶ 自動播放下一首：關閉</button><span class="muted" id="autoNextHelp">開啟後，目前音檔播放完畢便接續播放清單的下一首；最後一首會停止。</span></div></section><section class="panel" id="transcriptSection"><div class="row" style="margin:16px 0"><button id="complete">✓ 標記完成</button><button class="danger" id="remove">刪除此教材</button></div><h2>中英文逐字稿及學習筆記</h2><p class="muted" id="transcriptStatus" role="status">請先選擇教材。若雲端資料夾中有同名 TXT、SRT、VTT，將自動讀取。</p><div class="row" style="margin:8px 0"><button class="secondary" id="transcribeAudio" type="button">🎙 從音檔產生英文逐字稿</button><button class="secondary" id="prepareWhisper" type="button">⬇ 測試／下載辨識模型</button><button class="secondary" id="translateEnglish" type="button">🌐 重新翻譯成中文</button><button id="saveTranscriptDrive" type="button">☁ 儲存逐字稿至 Google Drive</button><button class="secondary" id="reloadTranscript">↻ 重新載入雲端逐字稿</button><label style="margin:0;flex:2">匯入逐字稿檔<input accept=".txt,.srt,.vtt,text/plain,text/vtt" id="transcriptFile" style="margin-top:4px" type="file"/></label></div><label class="autoupload-option" style="display:flex;align-items:center;gap:9px;font-size:14px;margin:12px 0"><input id="autoTranslateChinese" type="checkbox" style="width:auto;accent-color:#087e74"> 英文辨識完成後自動翻譯成繁體中文（預設開啟）</label><p class="muted" id="translateStatus" role="status">可在英文辨識完成後自動翻譯，或修改英文內容後按「重新翻譯成中文」。首次使用須下載翻譯模型；翻譯結果可能不準確，請自行核對。</p><label class="autoupload-option" style="display:flex;align-items:center;gap:9px;font-size:14px;margin:12px 0"><input id="autoUploadTranscript" type="checkbox" style="width:auto;accent-color:#087e74"> 語音辨識完成後自動儲存至 Google Drive（限雲端教材）</label><p class="muted">☁ 儲存會將英文及中文逐字稿存成同名 TXT 檔，放回教材所在資料夾。請先至「我的教材清單」重新授權完整 Drive 讀寫權限；此權限可管理帳號雲端硬碟內的檔案，請只在信任本網站時同意。辨識結果也會保存在目前瀏覽器。</p><p class="muted" id="asrStatus" role="status">瀏覽器端 Whisper 語音辨識（如一直沒有進度，請按 Ctrl+F5 清除舊版快取）：第一次會下載模型（約數十至數百 MB），僅辨識英文；速度依裝置而異。辨識期間請保持網頁開啟。</p><label for="englishText">英文逐字稿</label><textarea id="englishText" placeholder="對應音檔的英文逐字稿會顯示在這裡；也可以自行編輯。"></textarea><label for="chineseText">中文翻譯</label><textarea id="chineseText" placeholder="若雲端有同名中文翻譯檔，會自動顯示在這裡；也可自行編輯。"></textarea><h2 style="margin-top:18px">學習筆記</h2><textarea id="notes" placeholder="記錄單字、句型或個人學習心得。"></textarea><p class="muted">自動配對範例：Part 2-01.mp3 搭配 Part 2-01.en.srt（英文）、Part 2-01.zh.txt（中文）。支援 TXT / SRT / VTT。若沒有字幕檔，可使用「從音檔產生英文逐字稿」進行語音辨識；辨識不等於正確答案，請自行核對。</p><p class="muted">學習清單、筆記與完成狀態保存在目前瀏覽器的 localStorage；清除瀏覽資料可能遺失紀錄。</p></section><aside aria-label="教材清單與管理" class="panel hidden" id="materialsSection"><div class="view-lead"><span>教材清單與管理</span><button class="secondary" id="backToPlayer" type="button">← 返回播放畫面</button></div><h2>Google Drive 同步與教材管理</h2>
 <div aria-label="Google Drive 雲端連線" class="config">
 <input id="clientId" type="hidden"/><input id="folderId" type="hidden"/>
 <div class="row"><button id="connect">Google 連線／快速續用</button><button class="secondary" id="sync">重新同步</button><button class="secondary smallbtn" id="reauthorize" type="button">重新授權</button></div>
@@ -256,6 +256,98 @@ if(tracks.length)select(tracks[0].id);else render();
 </script>
 <script>
 // Browser-only speech-to-text: no API key or server-side secret.
+// Local, browser-side EN -> ZH translation. No transcript text is sent to a translation API.
+const AUTO_TRANSLATE_KEY='toeic_auto_translate_zh_v1';
+try{$('autoTranslateChinese').checked=localStorage.getItem(AUTO_TRANSLATE_KEY)!=='false'}catch{$('autoTranslateChinese').checked=true}
+$('autoTranslateChinese').onchange=()=>{try{localStorage.setItem(AUTO_TRANSLATE_KEY,String($('autoTranslateChinese').checked))}catch{}};
+let translator=null,translationLoading=null,translationBusy=false,zhConverter=null,converterAttempted=false;
+function translateNote(message){$('translateStatus').textContent=message;console.info('[TOEIC Translate]',message)}
+async function loadTranslator(){
+ if(translator)return translator;
+ if(!translationLoading)translationLoading=(async()=>{
+  translateNote('正在準備英文→中文翻譯模型，初次使用須下載模型，請保持網路連線…');
+  // MarianMT/OPUS model uses the proven Transformers.js v2 translation pipeline.
+  const {pipeline,env}=await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/+esm');
+  env.allowLocalModels=false;
+  return pipeline('translation','Xenova/opus-mt-en-zh',{progress_callback:p=>{
+   if(p.status==='progress'&&Number.isFinite(p.progress))translateNote('正在下載翻譯模型：'+Math.round(p.progress)+'%');
+  }});
+ })().catch(err=>{translationLoading=null;throw err});
+ translator=await translationLoading;
+ return translator;
+}
+async function getTraditionalConverter(){
+ if(converterAttempted)return zhConverter;
+ converterAttempted=true;
+ try{
+  const lib=await import('https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/+esm');
+  const factory=lib.Converter||lib.default?.Converter;
+  if(typeof factory==='function')zhConverter=factory({from:'cn',to:'tw'});
+ }catch(e){console.warn('[TOEIC Translate] 繁體轉換程式載入失敗',e)}
+ return zhConverter;
+}
+function translationChunks(source){
+ // Small chunks avoid exceeding Marian's input token limit on long transcripts.
+ const normalized=String(source||'').replace(/\r\n?/g,'\n').trim();
+ const sentences=normalized.match(/[^.!?\n]+(?:[.!?]+|\n|$)/g)||[normalized];
+ const chunks=[];let pending='';
+ const push=()=>{if(pending.trim())chunks.push(pending.trim());pending=''};
+ for(const sentence of sentences){
+  const words=sentence.trim().split(/\s+/).filter(Boolean);
+  if(!words.length)continue;
+  for(let i=0;i<words.length;i+=65){
+   let part=words.slice(i,i+65).join(' ');
+   if(pending&&(pending+' '+part).length>350)push();
+   pending+=(pending?' ':'')+part;
+   if(pending.length>=300)push();
+  }
+ }
+ push();return chunks;
+}
+async function translateTrack(t,{automatic=false}={}){
+ if(translationBusy){translateNote('翻譯正在進行，請完成後再試。');return false}
+ const english=String(t?.englishText||'').trim();
+ if(!english){translateNote('沒有英文逐字稿，請先辨識或輸入英文文字。');return false}
+ if(automatic&&String(t.chineseText||'').trim()){
+  translateNote('已有中文翻譯，為避免覆蓋已編輯內容，本次保留原文。可按「重新翻譯成中文」更新。');
+  return false;
+ }
+ if(!automatic&&String(t.chineseText||'').trim()&&!confirm('重新翻譯會取代這份教材原有的中文翻譯，確定繼續？'))return false;
+ translationBusy=true;$('translateEnglish').disabled=true;
+ const prior=$('translateEnglish').textContent;$('translateEnglish').textContent='⏳ 翻譯中…';
+ try{
+  const model=await loadTranslator();
+  const chunks=translationChunks(english);
+  if(!chunks.length)throw Error('沒有可翻譯的英文內容');
+  const translated=[];
+  for(let i=0;i<chunks.length;i++){
+   translateNote('正在翻譯英文逐字稿：'+(i+1)+' / '+chunks.length+' 段…');
+   const output=await model(chunks[i],{max_new_tokens:256});
+   const value=String((Array.isArray(output)?output[0]:output)?.translation_text||'').trim();
+   if(!value)throw Error('第 '+(i+1)+' 段翻譯結果為空白');
+   translated.push(value);
+  }
+  let chinese=translated.join('\n');
+  const convert=await getTraditionalConverter();
+  if(convert)chinese=convert(chinese);
+  t.chineseText=chinese;
+  if(currentId===t.id)$('chineseText').value=chinese;
+  save();
+  translateNote(convert?'✅ 已完成繁體中文翻譯並儲存至瀏覽器。請核對內容。':'⚠ 中文翻譯已完成，但繁體字轉換元件載入失敗，可能包含簡體字；請檢查網路後再翻譯。');
+  return true;
+ }catch(e){translateNote('❌ 自動翻譯失敗：'+(e?.message||String(e))+'。英文逐字稿仍已保留，可稍後按「重新翻譯成中文」。');return false}
+ finally{translationBusy=false;$('translateEnglish').disabled=false;$('translateEnglish').textContent=prior}
+}
+$('translateEnglish').onclick=async()=>{
+ const t=get();if(!t){translateNote('請先選擇教材。');return}
+ t.englishText=$('englishText').value;t.chineseText=$('chineseText').value;save();
+ const translated=await translateTrack(t);
+ if(translated&&t.type==='cloud'&&$('autoUploadTranscript').checked){
+  $('transcriptStatus').textContent='翻譯完成，正在嘗試儲存至 Google Drive…';
+  await saveTranscriptToDrive({automatic:true,target:t});
+ }
+};
+
 let whisperPipeline=null,whisperLoading=null,asrBusy=false;
 function asrNote(msg){$('asrStatus').textContent=msg;console.info('[TOEIC ASR]',msg)}
 async function getWhisper(){
@@ -316,10 +408,14 @@ $('transcribeAudio').onclick=async()=>{
   t.englishText=value;save();
   if(currentId===selectedId)$('englishText').value=value;
   asrNote('辨識完成：英文逐字稿已保存至瀏覽器，請核對辨識內容。');
+  // Translate only after successful English ASR; don't risk losing the recognized English on translation errors.
+  if($('autoTranslateChinese').checked){
+   await translateTrack(t,{automatic:true});
+  }else translateNote('已完成英文辨識；自動翻譯已關閉，可隨時按「重新翻譯成中文」。');
   if(t.type==='cloud'&&$('autoUploadTranscript').checked){
    $('transcriptStatus').textContent='辨識完成，正在自動上傳逐字稿至 Google Drive…';
    const uploaded=await saveTranscriptToDrive({automatic:true,target:t});
-   asrNote(uploaded?'✅ 辨識完成，並已上傳 Google Drive。請核對英文內容。':'辨識完成，但尚未自動存回 Google Drive。請查看逐字稿上方提示，必要時手動儲存。');
+   asrNote(uploaded?'✅ 英文辨識完成，並已上傳可用的逐字稿至 Google Drive。請核對中英文內容。':'辨識完成，但尚未自動存回 Google Drive。請查看逐字稿上方提示，必要時手動儲存。');
   }
  }catch(e){asrNote('辨識失敗：'+(e?.message||String(e))+'。可改用 TXT / SRT 字幕匯入。')}
  finally{asrBusy=false;$('transcribeAudio').disabled=false;$('transcribeAudio').textContent='🎙 從音檔產生英文逐字稿'}
