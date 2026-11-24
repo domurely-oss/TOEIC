@@ -20,3 +20,12 @@ body.guest-mode main,body.guest-mode .cloud-mini{display:none!important}
 #guestSection .guest-link-form button{margin-bottom:6px}
 @media(max-width:800px){#guestSection .guest-layout,#guestSection .guest-transcripts{grid-template-columns:1fr}#guestSection .guest-list{max-height:220px}#guestSection .guest-text-frame{height:350px}}
 body .view-nav{display:flex!important;margin:16px auto 0;max-width:1200px;flex-wrap:wrap}
+#guestSection .guest-player{padding:18px;background:#edf7f5;border:1px solid #cce6e1;border-radius:14px;margin-bottom:20px}
+#guestSection .guest-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#guestSection .guest-controls button{font-size:13px;padding:9px}
+#guestSection .guest-controls label{margin:0}
+#guestSection .guest-check{display:flex;gap:5px;align-items:center}
+#guestSection .guest-check input{width:auto}
+#guestSection .guest-editor{min-height:380px;font-size:17px;line-height:1.8;background:#fffefa;resize:vertical}
+#guestSection .guest-edit-actions{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+#guestSection .guest-edit-actions button{font-size:13px}
