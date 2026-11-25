@@ -1,4 +1,4 @@
-name: Deploy TOEIC to GitHub Pages
+name: Deploy TOEIC GitHub Media
 on:
   push:
     branches: [main]
@@ -15,11 +15,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate and prepare website
         run: |
+          python3 scripts/build_catalog.py
           mkdir -p _site
           for file in index.html app.js speech.js navigation.js guest.css guest.js guest-catalog.js guest-texts.js; do
             test -s "$file" || { echo "Missing website file: $file"; exit 1; }
             cp "$file" _site/
           done
+          cp -r media _site/media
           touch _site/.nojekyll
           for file in _site/*.js; do node --check "$file"; done
       - name: Upload website artifact
